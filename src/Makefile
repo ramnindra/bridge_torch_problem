@@ -6,7 +6,8 @@ DEPS=$(patsubst %.o, %.d, $(OBJECTS))
 TARGETS=a.out
 
 COMPILE_FLAGS=-std=c++1z -g -O0 -Wall
-LINK_FLAGS=
+LINK_FLAGS=-lyaml-cpp
+
 
 CXX=g++
 

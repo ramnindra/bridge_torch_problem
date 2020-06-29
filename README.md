@@ -1,20 +1,4 @@
 
-
-### Introduction
-
-### Implementaton
-
-
-### Third-party Libraries
-
-LibYAML - A C library for parsing and emitting YAML.
-https://github.com/yaml/libyaml
-
-YAML parser and emitter in C++
-https://github.com/jbeder/yaml-cpp
-
-
-
 ### Introduction
 
 The bridge and torch problem is a logic puzzle that deals with four people, a bridge and a torch. It is one of the category of river crossing puzzles, where a number of people must move across a river, with some constraints like  bridge being narrow or people with different speed etc.
@@ -33,4 +17,19 @@ http://www.puzzlesandriddles.com/Brainteaser17.html
 https://en.wikipedia.org/wiki/Bridge_and_torch_problem
 https://github.com/kkouptsov/BridgeCrossing
 https://www.geeksforgeeks.org/puzzle-18-torch-and-bridge/
+
+
+### Strategies Thought
+* __Fastest First__ : 
+        To save time the  fastest person pick one other person at a time.
+* __Slowest Two First__
+        Two slowest persons, who have not yet crossed, travel together. This offsets time wasted on traveling each person separately. However, additional crossings are needed to bring the torch back. 
+* __Mix of above two__
+    there are cases when an optimal solution switches between two strategies above.
+
+### Dynamic  Programming Approach 
+The approach is to use Dynamic programming. Before getting dive into dynamic programminc let’s see the following observation that will be required in solving the problem. When any two people cross the bridge, then the fastest person crossing time will not be contributed in answer as both of them move with slowest person speed. When some of the people will cross the river and reached the right side then only the fastest people(smallest integer) will come back to the left side.
+Person can only be present either left side or right side of the bridge. Thus, if we maintain the left mask, then right mask can easily be calculated by setting the bits ‘1’ which is not present in the left mask. For instance, Right_mask = ((2n) – 1) XOR (left_mask).
+Any person can easily be represented by bitmask(usually called as ‘mask’). When ith bit of ‘mask’ is set, that means that person is present at left side of the bridge otherwise it would be present at right side of bridge. For instance, let the mask of 6 people is 100101, which reprsents the person 1, 4, 6 are present at left side of bridge and the person 2, 3 and 5 are present at the right side of the bridge.
+
 

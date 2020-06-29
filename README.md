@@ -1,4 +1,5 @@
 
+
 ### Introduction
 
 The bridge and torch problem is a logic puzzle that deals with four people, a bridge and a torch. It is one of the category of river crossing puzzles, where a number of people must move across a river, with some constraints like  bridge being narrow or people with different speed etc.
@@ -33,3 +34,50 @@ Person can only be present either left side or right side of the bridge. Thus, i
 Any person can easily be represented by bitmask(usually called as ‘mask’). When ith bit of ‘mask’ is set, that means that person is present at left side of the bridge otherwise it would be present at right side of bridge. For instance, let the mask of 6 people is 100101, which reprsents the person 1, 4, 6 are present at left side of bridge and the person 2, 3 and 5 are present at the right side of the bridge.
 
 
+### Packages Needed
+We need "YAML parser and emitter in C++": https://github.com/jbeder/yaml-cpp
+### Quick start
+```
+$ cd src
+$ make
+$ ./a.out ../tests.yaml
+```
+### Dynamic Programming Implementaton
+A global dp[2^20][2] array, in dp[i][j]-- 'i' denotes mask in which 'set bits' denotes total people standing at left side of bridge and 'j' denotes the turn that represent on which side we have to send people either from left to right(0) or from right to left(1).
+I implemented using single file torchbridge.cpp
+
+### Test config
+test 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Test case Id
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bridge Count
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; walk time for each bridge walk_time0 walk_time1 etc.
+
+test:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; test_id: 1   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bridgecount : 3
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; walk_time0: [21, 22, 23, 24, 25, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; walk_time1: [1, 20, 21, 22, 24, 25, 30, 31, 32, 33, 34, 35, 36, 37, 38]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; walk_time2: [111, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38]
+---
+test:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test_id: 2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bridgecount : 2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;walk_time0: [1, 20, 21, 22, 23, 24, 25, 30, 31, 32, 33, 34, 35, 36, 37, 38]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; walk_time1: [1, 20, 21, 22, 23, 24, 25, 26, 27, 28, 32, 33, 34, 35, 36, 37, 38]
+```
+$ cd src
+
+ram@RAM-M-R0HQ: src $ ./a.out ../test.yaml 
+Test Id : 1 bridge count : 3
+21 22 23 24 25 26 28 29 30 31 32 33 34 35 36 37 38 
+Total Taken :12648
+1 20 21 22 24 25 30 31 32 33 34 35 36 37 38 
+Total Taken :6465
+111 20 21 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 
+Total Taken :16872
+Test Id : 2 bridge count : 2
+1 20 21 22 23 24 25 30 31 32 33 34 35 36 37 38 
+Total Taken :7280
+1 20 21 22 23 24 25 26 27 28 32 33 34 35 36 37 38 
+Total Taken :8092
+ram@RAM-M-R0HQ: src $ 
